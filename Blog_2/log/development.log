@@ -1,0 +1,125 @@
+  [1m[36m (2.8ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreatePosts (20140911142836)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "body" text, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20140911142836"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+Migrating to CreateComments (20140911204322)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  CREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "body" text, "post_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20140911204322"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+Migrating to DeviseCreateUsers (20140911230918)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar(255) DEFAULT '' NOT NULL, "encrypted_password" varchar(255) DEFAULT '' NOT NULL, "reset_password_token" varchar(255), "reset_password_sent_at" datetime, "remember_created_at" datetime, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" datetime, "last_sign_in_at" datetime, "current_sign_in_ip" varchar(255), "last_sign_in_ip" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.2ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  CREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20140911230918"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_comments_on_post_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_comments_on_post_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_reset_password_token' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+
+
+
+Started GET "/" for 127.0.0.1 at 2016-04-03 03:02:24 -0400
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PostsController#index as HTML
+  [1m[35mPost Load (0.2ms)[0m  SELECT "posts".* FROM "posts"   ORDER BY created_at DESC
+  Rendered posts/index.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 1050ms (Views: 1035.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-04-03 03:02:25 -0400
+Processing by PostsController#index as HTML
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT "posts".* FROM "posts"   ORDER BY created_at DESC[0m
+  Rendered posts/index.html.erb within layouts/application (0.6ms)
+Completed 200 OK in 68ms (Views: 66.9ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/assets/_normalize.css?body=1" for 127.0.0.1 at 2016-04-03 03:02:25 -0400
+
+
+Started GET "/assets/comments.css?body=1" for 127.0.0.1 at 2016-04-03 03:02:25 -0400
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2016-04-03 03:02:25 -0400
+
+
+Started GET "/assets/posts.css?body=1" for 127.0.0.1 at 2016-04-03 03:02:25 -0400
+
+
+Started GET "/assets/pages.css?body=1" for 127.0.0.1 at 2016-04-03 03:02:25 -0400
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2016-04-03 03:02:25 -0400
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2016-04-03 03:02:25 -0400
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2016-04-03 03:02:25 -0400
+
+
+Started GET "/assets/comments.js?body=1" for 127.0.0.1 at 2016-04-03 03:02:25 -0400
+
+
+Started GET "/assets/pages.js?body=1" for 127.0.0.1 at 2016-04-03 03:02:25 -0400
+
+
+Started GET "/assets/posts.js?body=1" for 127.0.0.1 at 2016-04-03 03:02:25 -0400
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2016-04-03 03:02:25 -0400
+
+
+Started GET "/assets/logo.svg" for 127.0.0.1 at 2016-04-03 03:02:25 -0400
+
+
+Started GET "/about" for 127.0.0.1 at 2016-04-03 03:04:39 -0400
+Processing by PagesController#about as HTML
+  Rendered pages/about.html.erb within layouts/application (11.1ms)
+Completed 200 OK in 79ms (Views: 77.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/profile.jpeg" for 127.0.0.1 at 2016-04-03 03:04:39 -0400
+
+
+Started GET "/" for 127.0.0.1 at 2016-04-03 03:04:40 -0400
+Processing by PostsController#index as HTML
+  [1m[35mPost Load (0.1ms)[0m  SELECT "posts".* FROM "posts"   ORDER BY created_at DESC
+  Rendered posts/index.html.erb within layouts/application (1.0ms)
+Completed 200 OK in 69ms (Views: 67.6ms | ActiveRecord: 0.1ms)
